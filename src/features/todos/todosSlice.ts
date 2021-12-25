@@ -1,14 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { TodoItem, TodosList, TodoType } from '../../models/Todo';
 import { TodoAdd, TodoChange, TodoDelete } from '../../models/Actions';
+import { RootState } from '../../app/store';
+import { loadState } from '../../app/localStorage';
 
-const initialState: TodosList = {
-  items: {
-    TODO: [],
-    PROGRESS: [],
-    DONE: [],
-  },
-};
+type NullabeTodoItem = TodoItem | null;
+
+const initialState: TodosList = loadState();
 
 const todosSlice = createSlice({
   name: 'todos',
@@ -35,32 +33,37 @@ const todosSlice = createSlice({
     changeTodo(state, action: PayloadAction<TodoChange>) {
       const { todoId, type, changeType } = action.payload;
 
-      const id: number = state.items[type].findIndex(
-        (elem) => elem.id === todoId
-      );
+      const todo: NullabeTodoItem =
+        state.items[type].find((elem) => elem.id === todoId) ?? null;
 
-      const todo: TodoItem = state.items[type][id];
-      const filterdItems: TodoItem[] = state.items[type].filter(
-        (elem) => elem.id !== todo.id
-      );
-      state.items[type] = filterdItems;
-      state.items[changeType].push(todo);
+      if (todo) {
+        const filterdItems: TodoItem[] = state.items[type].filter(
+          (elem) => elem.id !== todo.id
+        );
+        state.items[type] = filterdItems;
+        state.items[changeType].push(todo);
+      }
     },
     deleteTodo(state, action: PayloadAction<TodoDelete>) {
       const { todoId, type } = action.payload;
 
-      const id: number = state.items[type].findIndex(
-        (elem) => elem.id === todoId
-      );
+      const todo: NullabeTodoItem =
+        state.items[type].find((elem) => elem.id === todoId) ?? null;
 
-      const todo: TodoItem = state.items[type][id];
-      const filterdItems: TodoItem[] = state.items[type].filter(
-        (elem) => elem.id !== todo.id
-      );
-      state.items[type] = filterdItems;
+      if (todo) {
+        const filterdItems: TodoItem[] = state.items[type].filter(
+          (elem) => elem.id !== todo.id
+        );
+        state.items[type] = filterdItems;
+      }
     },
   },
 });
 
 export const { changeTodo, deleteTodo, addTodo } = todosSlice.actions;
 export default todosSlice.reducer;
+
+export const getTodos = createSelector(
+  (state: RootState) => state.todos.items,
+  (items) => items
+);

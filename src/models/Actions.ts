@@ -7,4 +7,5 @@ export interface TodoChange {
   type: TodoType;
   changeType: TodoType;
 }
+
 export type TodoDelete = Pick<TodoChange, 'todoId' | 'type'>;

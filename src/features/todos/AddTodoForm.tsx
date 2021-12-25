@@ -59,7 +59,7 @@ export function AddTodoForm() {
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
         style={customStyles}
-        contentLabel='Example Modal'
+        contentLabel='Add New Item Modal'
       >
         <div className='modal-header'>
           <h5 className='modal-title'>New Item</h5>
@@ -70,8 +70,7 @@ export function AddTodoForm() {
             <div className='h6'>Title</div>
             <input
               type='text'
-              className='form-control'
-              aria-invalid={errors.title ? 'true' : 'false'}
+              className={`form-control ${errors.title ? 'is-invalid' : ''}`}
               {...register('title', { required: true, maxLength: 50 })}
             />
             {errors.title && errors.title.type === 'required' && (
@@ -86,7 +85,9 @@ export function AddTodoForm() {
             )}
             <div className='h6 mt-4'>Description</div>
             <textarea
-              className='form-control'
+              className={`form-control ${
+                errors.description ? 'is-invalid' : ''
+              }`}
               {...register('description', { maxLength: 500 })}
               rows={6}
             />
