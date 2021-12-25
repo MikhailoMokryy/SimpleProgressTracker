@@ -1,38 +1,23 @@
-.App {
-  text-align: center;
+.action-icon {
+  margin-left: 0.25rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.action-icon:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 300ms ease-in;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.todo-button {
+  border: 2px solid rgb(52, 58, 64);
+  padding: 0.25rem 2rem;
+  width: auto;
+  background-color: #fff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todo-button:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  transition: all 250ms ease-in;
+  box-shadow: 0 0 5px 1px #9a9b9c;
 }

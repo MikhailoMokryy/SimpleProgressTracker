@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { TodoColumn } from './features/todos/TodosColumn';
+import { AddTodoForm } from './features/todos/AddTodoForm';
+import { TodoType } from './models/Todo';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <div className='container'>
+        <AddTodoForm />
+        <div className='row mt-5'>
+          <TodoColumn type={TodoType.TODO} title='To do' />
+          <TodoColumn type={TodoType.PROGRESS} title='In Progress' />
+          <TodoColumn type={TodoType.DONE} title='Done' />
+        </div>
+      </div>
     </div>
   );
 }
